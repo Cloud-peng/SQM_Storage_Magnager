@@ -1,0 +1,35 @@
+spring:
+  minio:
+    endpoint: http://192.168.0.106:9000/
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucketname: bucket01
+  application:
+    name: ossservice
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  file-storage: #文件存储配置
+    default-platform: minio-1 #默认使用的存储平台
+    thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
+#    local: # 本地存储（不推荐使用），不使用的情况下可以不写
+
+
+
+    minio: # MinIO，由于 MinIO SDK 支持 AWS S3，其它兼容 AWS S3 协议的存储平台也都可配置在这里
+      - platform: minio-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key: minioadmin
+        secret-key: minioadmin
+        end-point: http://192.168.0.106:9000/
+        bucket-name: bucket01
+        domain:  # 访问域名，注意“/”结尾，例如：http://minio.abc.com/abc/
+        base-path: / # 基础路径
+server:
+  port: 8002

@@ -1,0 +1,25 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: service-item
+  profiles:
+    # ????dev?test?prod
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/smq?serverTimezone=GMT%2B8
+    username: SMQAdmin
+    password: smq2023
+
+mybatis-plus:
+  mapper-locations: classpath:com/smq/itemservice/mapper/xml/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mybatis-plus-join:
+  #关闭副表逻辑删除 默认 true
+  sub-table-logic: true
