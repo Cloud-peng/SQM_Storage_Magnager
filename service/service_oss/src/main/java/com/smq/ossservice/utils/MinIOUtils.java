@@ -6,6 +6,9 @@ import io.minio.messages.Bucket;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -24,13 +27,18 @@ import java.util.Optional;
  * @date 2021/12/14 19:30
  */
 @Slf4j
+@Component
+@Configuration
 public class MinIOUtils {
 
     private static MinioClient minioClient;
-
+    @Value("${spring.minio.endpoint}")
     private static String endpoint;
+    @Value("${spring.minio.bucketname}")
     private static String bucketName;
+    @Value("${spring.minio.access-key}")
     private static String accessKey;
+    @Value("${spring.minio.secret-key}")
     private static String secretKey;
     private static Integer imgSize;
     private static Integer fileSize;

@@ -1,6 +1,6 @@
 spring:
   minio:
-    endpoint: http://192.168.0.106:9000/
+    endpoint: http://172.19.51.57:9000/
     access-key: minioadmin
     secret-key: minioadmin
     bucketname: bucket01
@@ -13,7 +13,7 @@ spring:
     time-zone: GMT+8
   servlet:
     multipart:
-      max-file-size: 10MB
+      max-file-size: 20MB
       max-request-size: 100MB
   file-storage: #文件存储配置
     default-platform: minio-1 #默认使用的存储平台
