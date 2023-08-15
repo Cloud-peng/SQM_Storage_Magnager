@@ -28,7 +28,6 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
-@Configuration
 public class MinIOUtils {
 
     private static MinioClient minioClient;
