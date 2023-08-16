@@ -28,15 +28,27 @@ public class ConstantPropertiesUtil implements InitializingBean {
     private String secretkey;
     @Value("${spring.minio.bucketname}")
     private String bucketname;
+    @Value("${spring.minio.max-file-size}")
+    private String maxfilesize;
+    @Value("${spring.minio.max-mutil-file-size}")
+    private String maxmutilfilesize;
+
     public static String END_POINT;
     public static String ACCESS_KEY;
     public static String SECRET_KEY;
     public static String BUCKET_NAME;
+
+    public static Integer MAX_FILE_SIZE;
+
+    public static Integer MAX_MUTILFILE_SIZE;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         END_POINT = endpoint;
         ACCESS_KEY = accesskey;
         SECRET_KEY = secretkey;
         BUCKET_NAME= bucketname;
+        MAX_FILE_SIZE=Integer.getInteger(maxfilesize);
+        MAX_FILE_SIZE =Integer.getInteger(maxmutilfilesize);
     }
 }

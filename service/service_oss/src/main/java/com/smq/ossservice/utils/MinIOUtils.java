@@ -28,40 +28,43 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
+@Configuration
 public class MinIOUtils {
-
     private static MinioClient minioClient;
-    @Value("${spring.minio.endpoint}")
     private static String endpoint;
-    @Value("${spring.minio.bucketname}")
     private static String bucketName;
-    @Value("${spring.minio.access-key}")
     private static String accessKey;
-    @Value("${spring.minio.secret-key}")
     private static String secretKey;
-    private static Integer imgSize;
     private static Integer fileSize;
-
+    private static Integer mutilfileSize;
 
     private static final String SEPARATOR = "/";
 
     public MinIOUtils() {
     }
-
-    public MinIOUtils(String endpoint, String bucketName, String accessKey, String secretKey, Integer imgSize, Integer fileSize) {
-        MinIOUtils.endpoint = endpoint;
-        MinIOUtils.bucketName = bucketName;
-        MinIOUtils.accessKey = accessKey;
-        MinIOUtils.secretKey = secretKey;
-        MinIOUtils.imgSize = imgSize;
-        MinIOUtils.fileSize = fileSize;
-        createMinioClient();
+    public MinioClient getMinioClient(){
+        return minioClient;
     }
+//    public boolean createMinioClient(String endpoint, String bucketName, String accessKey, String secretKey, Integer fileSizeSize, Integer mutilfileSize) {
+//        MinIOUtils.endpoint = endpoint;
+//        MinIOUtils.bucketName = bucketName;
+//        MinIOUtils.accessKey = accessKey;
+//        MinIOUtils.secretKey = secretKey;
+//        MinIOUtils.fileSize = fileSizeSize;
+//        MinIOUtils.mutilfileSize = mutilfileSize;
+//       return createMinioClient();
+//    }
 
     /**
      * 创建基于Java端的MinioClient
      */
-    public void createMinioClient() {
+    public boolean createMinioClient() {
+        endpoint= ConstantPropertiesUtil.END_POINT;
+        bucketName=ConstantPropertiesUtil.BUCKET_NAME;
+        accessKey=ConstantPropertiesUtil.ACCESS_KEY;
+        secretKey=ConstantPropertiesUtil.SECRET_KEY;
+        fileSize =ConstantPropertiesUtil.MAX_FILE_SIZE;
+        mutilfileSize =ConstantPropertiesUtil.MAX_MUTILFILE_SIZE;
         try {
             if (null == minioClient) {
                 log.info("开始创建 MinioClient...");
@@ -72,10 +75,13 @@ public class MinIOUtils {
                         .build();
                 createBucket(bucketName);
                 log.info("创建完毕 MinioClient...");
+                return true;
             }
         } catch (Exception e) {
             log.error("[Minio工具类]>>>> MinIO服务器异常：", e);
+            return false;
         }
+        return false;
     }
 
     /**

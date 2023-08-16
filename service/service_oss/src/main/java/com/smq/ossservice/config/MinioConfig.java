@@ -1,17 +1,11 @@
-//package com.atguigu.ossservice.config;
-//
-//import io.minio.MinioClient;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//
-///**
-// * @author 彭云
-// * @title: MinioConfig
-// * @projectName guli_parent
-// * @description: TODO
-// * @date 2023/6/3023:19
-// */
+package com.smq.ossservice.config;
+/**
+ * @author 彭云
+ * @title: MinioConfig
+ * @projectName guli_parent
+ * @description: TODO
+ * @date 2023/6/3023:19
+ */
 //@Configuration
 //public class MinioConfig {
 //    @Autowired
@@ -26,3 +20,9 @@
 //        return minioClient;
 //    }
 //}
+
+public class MinioConfig{
+
+
+
+}

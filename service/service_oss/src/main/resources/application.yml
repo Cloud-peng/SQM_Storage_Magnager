@@ -4,6 +4,8 @@ spring:
     access-key: minioadmin
     secret-key: minioadmin
     bucketname: bucket01
+    max-file-size: 20MB
+    max-mutil-file-size: 200MB
   application:
     name: ossservice
   profiles:
