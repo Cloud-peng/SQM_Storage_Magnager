@@ -47,7 +47,7 @@ public class ConstantPropertiesMinio implements InitializingBean {
         SECRET_KEY = secretkey;
         BUCKET_NAME= bucketname;
         MAX_FILE_SIZE=Integer.getInteger(maxfilesize);
-        MAX_FILE_SIZE =Integer.getInteger(maxmutilfilesize);
+        MAX_MUTILFILE_SIZE =Integer.getInteger(maxmutilfilesize);
 
     }
 

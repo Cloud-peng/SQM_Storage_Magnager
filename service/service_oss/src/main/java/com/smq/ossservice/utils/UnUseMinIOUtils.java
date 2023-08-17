@@ -19,7 +19,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * MinIO工具类
@@ -30,7 +29,8 @@ import java.util.Optional;
 @Slf4j
 @Component
 @Configuration
-public class MinIOUtils implements InitializingBean {
+public class UnUseMinIOUtils implements InitializingBean {
+
     private static MinioClient minioClient;
     private static String endpoint;
     private static String bucketName;
@@ -41,7 +41,7 @@ public class MinIOUtils implements InitializingBean {
 
     private static final String SEPARATOR = "/";
 
-    public MinIOUtils() {
+    public UnUseMinIOUtils() {
 
     }
     public  MinioClient getMinioClient(){
@@ -435,18 +435,6 @@ public class MinIOUtils implements InitializingBean {
         secretKey = ConstantPropertiesMinio.SECRET_KEY;
         fileSize = ConstantPropertiesMinio.MAX_FILE_SIZE;
         mutilfileSize = ConstantPropertiesMinio.MAX_MUTILFILE_SIZE;
-        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.END_POINT);
-        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.BUCKET_NAME);
-        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.ACCESS_KEY);
-        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.SECRET_KEY);
-        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.MAX_FILE_SIZE);
-        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.MAX_MUTILFILE_SIZE);
-        System.out.println("endpoint:"+endpoint);
-        System.out.println("bucketName:"+endpoint);
-        System.out.println("accessKey:"+endpoint);
-        System.out.println("secretKey:"+endpoint);
-        System.out.println("fileSize:"+endpoint);
-        System.out.println("mutilfileSize:"+endpoint);
         createMinioClient();
     }
 
