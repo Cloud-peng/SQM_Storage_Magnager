@@ -1,4 +1,4 @@
-package com.smq.ossservice.utils;
+package com.smq.ossservice.config;
 
 /**
  * @author 彭云
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Configuration
 //@PropertySource("classpath:application.properties")
-public class ConstantPropertiesUtil implements InitializingBean {
+public class ConstantPropertiesMinio implements InitializingBean {
     @Value("${spring.minio.endpoint}")
     private String endpoint;
     @Value("${spring.minio.access-key}")
@@ -37,9 +37,7 @@ public class ConstantPropertiesUtil implements InitializingBean {
     public static String ACCESS_KEY;
     public static String SECRET_KEY;
     public static String BUCKET_NAME;
-
     public static Integer MAX_FILE_SIZE;
-
     public static Integer MAX_MUTILFILE_SIZE;
 
     @Override
@@ -50,5 +48,7 @@ public class ConstantPropertiesUtil implements InitializingBean {
         BUCKET_NAME= bucketname;
         MAX_FILE_SIZE=Integer.getInteger(maxfilesize);
         MAX_FILE_SIZE =Integer.getInteger(maxmutilfilesize);
+
     }
+
 }

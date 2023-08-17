@@ -40,6 +40,7 @@ public class MinIOUtils {
     private static final String SEPARATOR = "/";
 
     public MinIOUtils() {
+
     }
 
     public MinIOUtils(String endpoint, String bucketName, String accessKey, String secretKey, Integer imgSize, Integer fileSize) {

@@ -2,6 +2,8 @@ spring:
   minio:
     endpoint: http://172.19.51.57:9000/
     access-key: minioadmin
+#    access-key: ZbgyaofMN0uAhsOGL7WZ
+#    secret-key: W3tg5vbig31I5iBkPe1U1xrr1yiR7BOUfdPH7Lmo
     secret-key: minioadmin
     bucketname: bucket01
     max-file-size: 20MB

@@ -1,12 +1,13 @@
 package com.smq.ossservice.utils;
 
+import com.smq.ossservice.config.ConstantPropertiesMinio;
 import io.minio.*;
 import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +30,7 @@ import java.util.Optional;
 @Slf4j
 @Component
 @Configuration
-public class MinIOUtils {
+public class MinIOUtils implements InitializingBean {
     private static MinioClient minioClient;
     private static String endpoint;
     private static String bucketName;
@@ -41,30 +42,16 @@ public class MinIOUtils {
     private static final String SEPARATOR = "/";
 
     public MinIOUtils() {
+
     }
-    public MinioClient getMinioClient(){
+    public  MinioClient getMinioClient(){
         return minioClient;
     }
-//    public boolean createMinioClient(String endpoint, String bucketName, String accessKey, String secretKey, Integer fileSizeSize, Integer mutilfileSize) {
-//        MinIOUtils.endpoint = endpoint;
-//        MinIOUtils.bucketName = bucketName;
-//        MinIOUtils.accessKey = accessKey;
-//        MinIOUtils.secretKey = secretKey;
-//        MinIOUtils.fileSize = fileSizeSize;
-//        MinIOUtils.mutilfileSize = mutilfileSize;
-//       return createMinioClient();
-//    }
 
     /**
      * 创建基于Java端的MinioClient
      */
-    public boolean createMinioClient() {
-        endpoint= ConstantPropertiesUtil.END_POINT;
-        bucketName=ConstantPropertiesUtil.BUCKET_NAME;
-        accessKey=ConstantPropertiesUtil.ACCESS_KEY;
-        secretKey=ConstantPropertiesUtil.SECRET_KEY;
-        fileSize =ConstantPropertiesUtil.MAX_FILE_SIZE;
-        mutilfileSize =ConstantPropertiesUtil.MAX_MUTILFILE_SIZE;
+    public void   createMinioClient() {
         try {
             if (null == minioClient) {
                 log.info("开始创建 MinioClient...");
@@ -75,20 +62,18 @@ public class MinIOUtils {
                         .build();
                 createBucket(bucketName);
                 log.info("创建完毕 MinioClient...");
-                return true;
             }
         } catch (Exception e) {
             log.error("[Minio工具类]>>>> MinIO服务器异常：", e);
-            return false;
+
         }
-        return false;
     }
 
     /**
      * 获取上传文件前缀路径
      * @return
      */
-    public static String getBasisUrl() {
+    public static String getBasicUrl() {
         return endpoint + SEPARATOR + bucketName + SEPARATOR;
     }
 
@@ -131,13 +116,12 @@ public class MinIOUtils {
                 );
     }
 
-
     /**
      * 获得所有Bucket列表
      * @return
      * @throws Exception
      */
-    public static List<Bucket> getAllBuckets() throws Exception {
+    public static   List<Bucket> getAllBuckets() throws Exception {
         return minioClient.listBuckets();
     }
 
@@ -147,9 +131,9 @@ public class MinIOUtils {
      * @return
      * @throws Exception
      */
-    public static Optional<Bucket> getBucket(String bucketName) throws Exception {
-        return getAllBuckets().stream().filter(b -> b.name().equals(bucketName)).findFirst();
-    }
+//    public static Optional<Bucket> getBucket(String bucketName) throws Exception {
+//        return this.getAllBuckets().stream().filter(b -> b.name().equals(bucketName)).findFirst();
+//    }
 
     /**
      * 根据bucketName删除Bucket，true：删除成功； false：删除失败，文件或已不存在
@@ -207,7 +191,7 @@ public class MinIOUtils {
     }
 
     /**
-     * 根据文件前置查询文件
+     * 根据文件前缀查询文件
      * @param bucketName 存储桶
      * @param prefix 前缀
      * @param recursive 是否使用递归查询
@@ -441,6 +425,29 @@ public class MinIOUtils {
     public static String getUtf8ByURLDecoder(String str) throws UnsupportedEncodingException {
         String url = str.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
         return URLDecoder.decode(url, "UTF-8");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        endpoint = ConstantPropertiesMinio.END_POINT;
+        bucketName = ConstantPropertiesMinio.BUCKET_NAME;
+        accessKey = ConstantPropertiesMinio.ACCESS_KEY;
+        secretKey = ConstantPropertiesMinio.SECRET_KEY;
+        fileSize = ConstantPropertiesMinio.MAX_FILE_SIZE;
+        mutilfileSize = ConstantPropertiesMinio.MAX_MUTILFILE_SIZE;
+        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.END_POINT);
+        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.BUCKET_NAME);
+        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.ACCESS_KEY);
+        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.SECRET_KEY);
+        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.MAX_FILE_SIZE);
+        System.out.println("ConstantPropertiesMinio.END_POINT:"+ConstantPropertiesMinio.MAX_MUTILFILE_SIZE);
+        System.out.println("endpoint:"+endpoint);
+        System.out.println("bucketName:"+endpoint);
+        System.out.println("accessKey:"+endpoint);
+        System.out.println("secretKey:"+endpoint);
+        System.out.println("fileSize:"+endpoint);
+        System.out.println("mutilfileSize:"+endpoint);
+        createMinioClient();
     }
 
     /******************************  Operate Files End  ******************************/
